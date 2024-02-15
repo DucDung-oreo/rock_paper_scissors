@@ -77,7 +77,7 @@ void MainWindow::display_choice()
 
 Choices MainWindow::generate_choice()
 {
-    return static_cast<Choices>(rand() % 4);
+    return static_cast<Choices>(rand() % 3);
 }
 
 QString MainWindow::get_result(Choices p1, Choices p2)
