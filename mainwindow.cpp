@@ -17,18 +17,24 @@ MainWindow::~MainWindow()
 void MainWindow::on_rockButton_clicked()
 {
     player1Choice = ROCK;
+    ui->paperButton->setEnabled(false);
+    ui->scissorsButton->setEnabled(false);
 }
 
 
 void MainWindow::on_paperButton_clicked()
 {
     player1Choice = PAPER;
+    ui->rockButton->setEnabled(false);
+    ui->scissorsButton->setEnabled(false);
 }
 
 
 void MainWindow::on_scissorsButton_clicked()
 {
     player1Choice = SCISSORS;
+    ui->paperButton->setEnabled(false);
+    ui->rockButton->setEnabled(false);
 }
 
 
@@ -48,6 +54,10 @@ void MainWindow::on_goButton_clicked()
         break;
     }
     ui->resultLabel->setText(get_result(player1Choice, player2Choice));
+    qDebug() << "It's " << player1Choice << " vs " << player2Choice;
+    ui->paperButton->setEnabled(true);
+    ui->rockButton->setEnabled(true);
+    ui->scissorsButton->setEnabled(true);
 }
 
 void MainWindow::display_choice()

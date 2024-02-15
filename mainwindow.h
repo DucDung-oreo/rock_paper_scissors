@@ -26,8 +26,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Choices player1Choice = ROCK;
-    Choices player2Choice = ROCK;
+    Choices player1Choice;
+    Choices player2Choice;
     void display_choice();
     Choices generate_choice();
     QString get_result(Choices p1, Choices p2);
