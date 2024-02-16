@@ -19,6 +19,7 @@ void MainWindow::on_rockButton_clicked()
     player1Choice = ROCK;
     ui->paperButton->setEnabled(false);
     ui->scissorsButton->setEnabled(false);
+    display_round();
 }
 
 
@@ -27,6 +28,7 @@ void MainWindow::on_paperButton_clicked()
     player1Choice = PAPER;
     ui->rockButton->setEnabled(false);
     ui->scissorsButton->setEnabled(false);
+    display_round();
 }
 
 
@@ -35,6 +37,7 @@ void MainWindow::on_scissorsButton_clicked()
     player1Choice = SCISSORS;
     ui->paperButton->setEnabled(false);
     ui->rockButton->setEnabled(false);
+    display_round();
 }
 
 
@@ -58,6 +61,8 @@ void MainWindow::on_goButton_clicked()
     ui->paperButton->setEnabled(true);
     ui->rockButton->setEnabled(true);
     ui->scissorsButton->setEnabled(true);
+    display_result();
+    roundCount++;
 }
 
 void MainWindow::display_choice()
@@ -83,9 +88,28 @@ Choices MainWindow::generate_choice()
 QString MainWindow::get_result(Choices p1, Choices p2)
 {
     if (p1 == p2)
+    {
+        tieCount++;
         return "IT'S A TIE ಠ_ಠ";
+    }
     else if ((p1 - p2 == -1) || (p1 - p2 == 2))
+    {
+        loseCount++;
         return "YOU LOSE ಥ_ಥ";
+    }
     else
         return "YOU WIN (⌐■_■)";
+}
+
+void MainWindow::display_round()
+{
+    ui->roundLabel->setText("(☞ﾟヮﾟ)☞ Round " + QString::number(roundCount));
+}
+
+void MainWindow::display_result()
+{
+    winCount = roundCount - loseCount - tieCount;
+    ui->winLabel->setText("Win: " + QString::number(winCount));
+    ui->tieLabel->setText("Tie: " + QString::number(tieCount));
+    ui->loseLabel->setText("Lose: " + QString::number(loseCount));
 }
