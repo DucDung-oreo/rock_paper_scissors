@@ -28,8 +28,14 @@ private:
     Ui::MainWindow *ui;
     Choices player1Choice;
     Choices player2Choice;
+    int roundCount = 1;
+    int winCount = 0;
+    int tieCount = 0;
+    int loseCount = 0;
     void display_choice();
     Choices generate_choice();
     QString get_result(Choices p1, Choices p2);
+    void display_round();
+    void display_result();
 };
 #endif // MAINWINDOW_H
