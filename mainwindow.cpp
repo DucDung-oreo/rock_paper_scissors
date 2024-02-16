@@ -16,7 +16,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_rockButton_clicked()
 {
-    player1Choice = ROCK;
+    player1->choice = ROCK;
     ui->paperButton->setEnabled(false);
     ui->scissorsButton->setEnabled(false);
     display_round();
@@ -25,7 +25,7 @@ void MainWindow::on_rockButton_clicked()
 
 void MainWindow::on_paperButton_clicked()
 {
-    player1Choice = PAPER;
+    player1->choice = PAPER;
     ui->rockButton->setEnabled(false);
     ui->scissorsButton->setEnabled(false);
     display_round();
@@ -34,7 +34,7 @@ void MainWindow::on_paperButton_clicked()
 
 void MainWindow::on_scissorsButton_clicked()
 {
-    player1Choice = SCISSORS;
+    player1->choice = SCISSORS;
     ui->paperButton->setEnabled(false);
     ui->rockButton->setEnabled(false);
     display_round();
@@ -43,46 +43,28 @@ void MainWindow::on_scissorsButton_clicked()
 
 void MainWindow::on_goButton_clicked()
 {
-    display_choice();
-    player2Choice = generate_choice();
-    switch (player2Choice) {
-    case ROCK:
-        ui->player2Label->setText("ROCK");
-        break;
-    case PAPER:
-        ui->player2Label->setText("PAPER");
-        break;
-    case SCISSORS:
-        ui->player2Label->setText("SCISSORS");
-        break;
-    }
-    ui->resultLabel->setText(get_result(player1Choice, player2Choice));
-    qDebug() << "It's " << player1Choice << " vs " << player2Choice;
-    ui->paperButton->setEnabled(true);
-    ui->rockButton->setEnabled(true);
-    ui->scissorsButton->setEnabled(true);
-    display_result();
-    roundCount++;
-}
-
-void MainWindow::display_choice()
-{
-    switch (player1Choice) {
-    case ROCK:
-        ui->player1Label->setText("ROCK");
-        break;
-    case PAPER:
-        ui->player1Label->setText("PAPER");
-        break;
-    case SCISSORS:
-        ui->player1Label->setText("SCISSORS");
-        break;
-    }
-}
-
-Choices MainWindow::generate_choice()
-{
-    return static_cast<Choices>(rand() % 3);
+    player1->display_choice(player1->choice);
+//    qDebug() << "Done displaying choices!!!";
+//    player2->choice = player2->generate_choice();
+//    qDebug() << "Done generating choices!!!";
+//    switch (player2->choice) {
+//    case ROCK:
+//        ui->player2Label->setText("ROCK");
+//        break;
+//    case PAPER:
+//        ui->player2Label->setText("PAPER");
+//        break;
+//    case SCISSORS:
+//        ui->player2Label->setText("SCISSORS");
+//        break;
+//    }
+//    ui->resultLabel->setText(get_result(player1->choice, player2->choice));
+//    qDebug() << "It's " << player1->choice << " vs " << player2->choice;
+//    ui->paperButton->setEnabled(true);
+//    ui->rockButton->setEnabled(true);
+//    ui->scissorsButton->setEnabled(true);
+//    display_result();
+//    roundCount++;
 }
 
 QString MainWindow::get_result(Choices p1, Choices p2)
