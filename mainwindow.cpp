@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    player1->intitialize(ui);
 }
 
 MainWindow::~MainWindow()
@@ -44,27 +45,27 @@ void MainWindow::on_scissorsButton_clicked()
 void MainWindow::on_goButton_clicked()
 {
     player1->display_choice(player1->choice);
-//    qDebug() << "Done displaying choices!!!";
-//    player2->choice = player2->generate_choice();
-//    qDebug() << "Done generating choices!!!";
-//    switch (player2->choice) {
-//    case ROCK:
-//        ui->player2Label->setText("ROCK");
-//        break;
-//    case PAPER:
-//        ui->player2Label->setText("PAPER");
-//        break;
-//    case SCISSORS:
-//        ui->player2Label->setText("SCISSORS");
-//        break;
-//    }
-//    ui->resultLabel->setText(get_result(player1->choice, player2->choice));
-//    qDebug() << "It's " << player1->choice << " vs " << player2->choice;
-//    ui->paperButton->setEnabled(true);
-//    ui->rockButton->setEnabled(true);
-//    ui->scissorsButton->setEnabled(true);
-//    display_result();
-//    roundCount++;
+    qDebug() << "Done displaying choices!!!";
+    player2->choice = player2->generate_choice();
+    qDebug() << "Done generating choices!!!";
+    switch (player2->choice) {
+    case ROCK:
+        ui->player2Label->setText("ROCK");
+        break;
+    case PAPER:
+        ui->player2Label->setText("PAPER");
+        break;
+    case SCISSORS:
+        ui->player2Label->setText("SCISSORS");
+        break;
+    }
+    ui->resultLabel->setText(get_result(player1->choice, player2->choice));
+    qDebug() << "It's " << player1->choice << " vs " << player2->choice;
+    ui->paperButton->setEnabled(true);
+    ui->rockButton->setEnabled(true);
+    ui->scissorsButton->setEnabled(true);
+    display_result();
+    roundCount++;
 }
 
 QString MainWindow::get_result(Choices p1, Choices p2)
