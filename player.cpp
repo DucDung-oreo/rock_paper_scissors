@@ -8,24 +8,26 @@ Player::Player()
 void Player::intitialize(Ui::MainWindow *ui_ptr)
 {
     ui = ui_ptr;
+    choices_map =
+    {
+        {0, "ROCK"},
+        {1, "PAPER"},
+        {2, "SCISSORS"}
+    };
 }
 
-void Player::display_choice(Choices player_choice)
+void Player::display_choice(int player_choice, QLabel* player_label)
 {
-    switch (player_choice) {
-    case ROCK:
-        ui->player1Label->setText("ROCK");
-        break;
-    case PAPER:
-        ui->player1Label->setText("PAPER");
-        break;
-    case SCISSORS:
-        ui->player1Label->setText("SCISSORS");
-        break;
-    }
+    player_label->setText(choices_map[player_choice]);
 }
 
-Choices Player::generate_choice()
+int Player::generate_choice()
 {
-    return static_cast<Choices>(rand() % 3);
+    return static_cast<int>(rand() % 3);
+}
+
+void Player::done_chosing(Player* player_ptr, QLabel* player_label)
+{
+    player_ptr->display_choice(player_ptr->choice, player_label);
+    ui->goButton->setEnabled(true);
 }

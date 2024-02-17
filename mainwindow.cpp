@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     player1->intitialize(ui);
+    player2->intitialize(ui);
+    ui->goButton->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -17,58 +19,44 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_rockButton_clicked()
 {
-    player1->choice = ROCK;
-    ui->paperButton->setEnabled(false);
-    ui->scissorsButton->setEnabled(false);
+    player1->choice = 0;
     display_round();
+    player1->done_chosing(player1, ui->player1Label);
 }
 
 
 void MainWindow::on_paperButton_clicked()
 {
-    player1->choice = PAPER;
-    ui->rockButton->setEnabled(false);
-    ui->scissorsButton->setEnabled(false);
+    player1->choice = 1;
     display_round();
+    player1->done_chosing(player1, ui->player1Label);
 }
 
 
 void MainWindow::on_scissorsButton_clicked()
 {
-    player1->choice = SCISSORS;
-    ui->paperButton->setEnabled(false);
-    ui->rockButton->setEnabled(false);
+    player1->choice = 2;
     display_round();
+    player1->done_chosing(player1, ui->player1Label);
 }
 
 
 void MainWindow::on_goButton_clicked()
 {
-    player1->display_choice(player1->choice);
-    qDebug() << "Done displaying choices!!!";
+    player1->display_choice(player1->choice, ui->player1Label);
     player2->choice = player2->generate_choice();
-    qDebug() << "Done generating choices!!!";
-    switch (player2->choice) {
-    case ROCK:
-        ui->player2Label->setText("ROCK");
-        break;
-    case PAPER:
-        ui->player2Label->setText("PAPER");
-        break;
-    case SCISSORS:
-        ui->player2Label->setText("SCISSORS");
-        break;
-    }
+    player2->display_choice(player2->choice, ui->player2Label);
+
     ui->resultLabel->setText(get_result(player1->choice, player2->choice));
     qDebug() << "It's " << player1->choice << " vs " << player2->choice;
-    ui->paperButton->setEnabled(true);
-    ui->rockButton->setEnabled(true);
-    ui->scissorsButton->setEnabled(true);
+
     display_result();
     roundCount++;
+
+    ui->goButton->setEnabled(false);
 }
 
-QString MainWindow::get_result(Choices p1, Choices p2)
+QString MainWindow::get_result(int p1, int p2)
 {
     if (p1 == p2)
     {
