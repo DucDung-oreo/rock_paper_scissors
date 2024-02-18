@@ -19,7 +19,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_rockButton_clicked()
 {
-    player1->choice = 0;
+    player1->set_choice(ROCK);
     display_round();
     player1->done_chosing(player1, ui->player1Label);
 }
@@ -27,7 +27,7 @@ void MainWindow::on_rockButton_clicked()
 
 void MainWindow::on_paperButton_clicked()
 {
-    player1->choice = 1;
+    player1->set_choice(PAPER);
     display_round();
     player1->done_chosing(player1, ui->player1Label);
 }
@@ -35,7 +35,7 @@ void MainWindow::on_paperButton_clicked()
 
 void MainWindow::on_scissorsButton_clicked()
 {
-    player1->choice = 2;
+    player1->set_choice(SCISSORS);
     display_round();
     player1->done_chosing(player1, ui->player1Label);
 }
@@ -43,12 +43,12 @@ void MainWindow::on_scissorsButton_clicked()
 
 void MainWindow::on_goButton_clicked()
 {
-    player1->display_choice(player1->choice, ui->player1Label);
-    player2->choice = player2->generate_choice();
-    player2->display_choice(player2->choice, ui->player2Label);
+    player1->display_choice(player1->get_choice(), ui->player1Label);
+    player2->set_choice(player2->generate_choice());
+    player2->display_choice(player2->get_choice(), ui->player2Label);
 
-    ui->resultLabel->setText(get_result(player1->choice, player2->choice));
-    qDebug() << "It's " << player1->choice << " vs " << player2->choice;
+    ui->resultLabel->setText(get_result(player1->get_choice(), player2->get_choice()));
+    qDebug() << "It's " << player1->get_choice() << " vs " << player2->get_choice();
 
     display_result();
     roundCount++;
