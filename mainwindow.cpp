@@ -6,14 +6,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    player1->intitialize(ui);
-    player2->intitialize(ui);
+    player1->initialize(ui);
+    player2->initialize(ui);
     ui->goButton->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete player1;
+    delete player2;
 }
 
 
@@ -43,7 +45,6 @@ void MainWindow::on_scissorsButton_clicked()
 
 void MainWindow::on_goButton_clicked()
 {
-    player1->display_choice(player1->get_choice(), ui->player1Label);
     player2->set_choice(player2->generate_choice());
     player2->display_choice(player2->get_choice(), ui->player2Label);
 
@@ -56,7 +57,7 @@ void MainWindow::on_goButton_clicked()
     ui->goButton->setEnabled(false);
 }
 
-QString MainWindow::get_result(int p1, int p2)
+QString MainWindow::get_result(Choices p1, Choices p2)
 {
     if (p1 == p2)
     {

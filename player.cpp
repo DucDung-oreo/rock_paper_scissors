@@ -1,11 +1,12 @@
 #include "player.h"
 
+
 Player::Player()
 {
 
 }
 
-void Player::intitialize(Ui::MainWindow *ui_ptr)
+void Player::initialize(Ui::MainWindow *ui_ptr)
 {
     ui = ui_ptr;
     choices_map =
@@ -18,7 +19,7 @@ void Player::intitialize(Ui::MainWindow *ui_ptr)
 
 void Player::display_choice(Choices player_choice, QLabel* player_label)
 {
-    player_label->setText(choices_map[player_choice]);
+    player_label->setText(choices_map.at(player_choice));
 }
 
 Choices Player::generate_choice()
@@ -40,4 +41,5 @@ Choices Player::get_choice()
 void Player::set_choice(Choices choice_enum)
 {
     choice = choice_enum;
+    qDebug() << "setChoice() " << choice;
 }

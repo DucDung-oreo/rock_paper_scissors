@@ -11,7 +11,7 @@ class Player
 {
 public:
     Player();
-    void intitialize(Ui::MainWindow *ui);
+    void initialize(Ui::MainWindow *ui);
     void display_choice(Choices player_choice, QLabel* player_label);
     void done_chosing(Player* player_ptr, QLabel* player_label);
     Choices get_choice();
@@ -20,7 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    std::unordered_map<int, QString> choices_map;
+    std::unordered_map<Choices, QString> choices_map;
     Choices choice;
 };
 

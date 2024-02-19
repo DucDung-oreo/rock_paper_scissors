@@ -28,7 +28,7 @@ private:
     int winCount = 0;
     int tieCount = 0;
     int loseCount = 0;
-    QString get_result(int p1, int p2);
+    QString get_result(Choices p1, Choices p2);
     void display_round();
     void display_result();
 
