@@ -17,11 +17,19 @@ public:
     Choices get_choice();
     void set_choice(Choices choice_enum);
     Choices generate_choice();
+    QString get_result(Choices p1, Choices p2);
+
+    int get_winCount();
+    int get_tieCount();
+    int get_loseCount();
 
 private:
     Ui::MainWindow *ui;
     std::unordered_map<Choices, QString> choices_map;
     Choices choice;
+    int winCount = 0;
+    int tieCount = 0;
+    int loseCount = 0;
 };
 
 #endif // PLAYER_H

@@ -25,12 +25,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     int roundCount = 1;
-    int winCount = 0;
-    int tieCount = 0;
-    int loseCount = 0;
-    QString get_result(Choices p1, Choices p2);
     void display_round();
-    void display_result();
+    void display_result(Player* player_ptr);
 
     Player* player1 = new Player;
     Player* player2 = new Player;

@@ -41,5 +41,38 @@ Choices Player::get_choice()
 void Player::set_choice(Choices choice_enum)
 {
     choice = choice_enum;
-    qDebug() << "setChoice() " << choice;
+}
+
+QString Player::get_result(Choices p1, Choices p2)
+{
+    if (p1 == p2)
+    {
+        tieCount++;
+        return "IT'S A TIE ಠ_ಠ";
+    }
+    else if ((p1 - p2 == -1) || (p1 - p2 == 2))
+    {
+        loseCount++;
+        return "YOU LOSE ಥ_ಥ";
+    }
+    else
+    {
+        winCount++;
+        return "YOU WIN (⌐■_■)";
+    }
+}
+
+int Player::get_winCount()
+{
+    return winCount;
+}
+
+int Player::get_tieCount()
+{
+    return tieCount;
+}
+
+int Player::get_loseCount()
+{
+    return loseCount;
 }

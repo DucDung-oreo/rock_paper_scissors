@@ -48,29 +48,12 @@ void MainWindow::on_goButton_clicked()
     player2->set_choice(player2->generate_choice());
     player2->display_choice(player2->get_choice(), ui->player2Label);
 
-    ui->resultLabel->setText(get_result(player1->get_choice(), player2->get_choice()));
-    qDebug() << "It's " << player1->get_choice() << " vs " << player2->get_choice();
+    ui->resultLabel->setText(player1->get_result(player1->get_choice(), player2->get_choice()));
 
-    display_result();
+    display_result(player1);
     roundCount++;
 
     ui->goButton->setEnabled(false);
-}
-
-QString MainWindow::get_result(Choices p1, Choices p2)
-{
-    if (p1 == p2)
-    {
-        tieCount++;
-        return "IT'S A TIE ಠ_ಠ";
-    }
-    else if ((p1 - p2 == -1) || (p1 - p2 == 2))
-    {
-        loseCount++;
-        return "YOU LOSE ಥ_ಥ";
-    }
-    else
-        return "YOU WIN (⌐■_■)";
 }
 
 void MainWindow::display_round()
@@ -78,10 +61,9 @@ void MainWindow::display_round()
     ui->roundLabel->setText("(☞ﾟヮﾟ)☞ Round " + QString::number(roundCount));
 }
 
-void MainWindow::display_result()
+void MainWindow::display_result(Player* player_ptr)
 {
-    winCount = roundCount - loseCount - tieCount;
-    ui->winLabel->setText("Win: " + QString::number(winCount));
-    ui->tieLabel->setText("Tie: " + QString::number(tieCount));
-    ui->loseLabel->setText("Lose: " + QString::number(loseCount));
+    ui->winLabel->setText("Win: " + QString::number(player_ptr->get_winCount()));
+    ui->tieLabel->setText("Tie: " + QString::number(player_ptr->get_tieCount()));
+    ui->loseLabel->setText("Lose: " + QString::number(player_ptr->get_loseCount()));
 }
