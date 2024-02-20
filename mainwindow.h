@@ -2,12 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "player.h"
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
-enum Choices { ROCK, PAPER, SCISSORS };
 
 class MainWindow : public QMainWindow
 {
@@ -22,20 +22,13 @@ private slots:
     void on_paperButton_clicked();
     void on_scissorsButton_clicked();
     void on_goButton_clicked();
-
+    void display_round_and_result();
 
 private:
     Ui::MainWindow *ui;
-    Choices player1Choice;
-    Choices player2Choice;
     int roundCount = 1;
-    int winCount = 0;
-    int tieCount = 0;
-    int loseCount = 0;
-    void display_choice();
-    Choices generate_choice();
-    QString get_result(Choices p1, Choices p2);
-    void display_round();
-    void display_result();
+
+    Player* player1 = new Player;
+    Player* player2 = new Player;
 };
 #endif // MAINWINDOW_H
