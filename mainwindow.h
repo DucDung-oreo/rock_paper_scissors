@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "player.h"
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +22,11 @@ private slots:
     void on_paperButton_clicked();
     void on_scissorsButton_clicked();
     void on_goButton_clicked();
+    void display_round_and_result();
 
 private:
     Ui::MainWindow *ui;
     int roundCount = 1;
-    void display_round();
-    void display_result(Player* player_ptr);
 
     Player* player1 = new Player;
     Player* player2 = new Player;
