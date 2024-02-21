@@ -23,10 +23,12 @@ private slots:
     void on_scissorsButton_clicked();
     void on_goButton_clicked();
     void display_round_and_result();
+    void reset_for_new_round(QString round_string, QString computer_string);
 
 private:
     Ui::MainWindow *ui;
     int roundCount = 1;
+    QString result_for_player1;
 
     Player* player1 = new Player;
     Player* player2 = new Player;
