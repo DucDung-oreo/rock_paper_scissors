@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>player1_avatar.png</file>
+        <file>coward.jpg</file>
+        <file>display_result.jpg</file>
+        <file>computer.png</file>
+    </qresource>
+</RCC>
