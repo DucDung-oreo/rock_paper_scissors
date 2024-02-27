@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->stackedWidget->setCurrentIndex(1);  // set to introPage
     player1->initialize(ui);
     player2->initialize(ui);
     ui->goButton->setEnabled(false);
@@ -73,3 +74,9 @@ void MainWindow::reset_for_new_round(QString round_string, QString computer_stri
     result_for_player1 = round_string;
     ui->player2Label->setText(computer_string);
 }
+
+void MainWindow::on_goToGameButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0); // move to gamePage
+}
+

@@ -25,6 +25,8 @@ private slots:
     void display_round_and_result();
     void reset_for_new_round(QString round_string, QString computer_string);
 
+    void on_goToGameButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     int roundCount = 1;
