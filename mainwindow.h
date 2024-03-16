@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "player.h"
 #include <QTimer>
+#include <QTcpSocket>
+#include <QtMqtt/QMqttClient>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +28,8 @@ private slots:
     void reset_for_new_round(QString round_string, QString computer_string);
 
     void on_goToGameButton_clicked();
+
+    void on_getDataButton_clicked();
 
 private:
     Ui::MainWindow *ui;

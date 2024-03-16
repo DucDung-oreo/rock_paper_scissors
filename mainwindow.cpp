@@ -80,3 +80,9 @@ void MainWindow::on_goToGameButton_clicked()
     ui->stackedWidget->setCurrentIndex(0); // move to gamePage
 }
 
+
+void MainWindow::on_getDataButton_clicked()
+{
+
+}
+
