@@ -10,8 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Network Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -20,6 +19,10 @@ set(PROJECT_SOURCES
         mainwindow.ui
         player.h
         player.cpp
+        gameclient.cpp
+        gameclient.h
+        gameserver.cpp
+        gameserver.h
         resource.qrc
 )
 

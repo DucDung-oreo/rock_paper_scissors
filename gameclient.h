@@ -2,33 +2,38 @@
 #define GAMECLIENT_H
 #pragma once
 
+#include <QDataStream>
 #include <QDialog>
-#include <QComboBox>
-#include <QLabel>
-//#include <QAbstractSocket>
-//#include <QTcpSocket>
+#include <QTcpSocket>
 
+QT_BEGIN_NAMESPACE
+class QComboBox;
+class QLabel;
+class QLineEdit;
+class QPushButton;
+class QTcpSocket;
+QT_END_NAMESPACE
 
 class GameClient : public QDialog
 {
     Q_OBJECT
 
 public:
-    GameClient();
+    explicit GameClient(QWidget *parent = nullptr);
 
 private slots:
     void requestNewFortune();
     void readFortune();
-//    void displayError(QAbstractSocket::SocketError socketError);
+    void displayError(QAbstractSocket::SocketError socketError);
     void enableGetFortuneButton();
 
-    private:
+private:
     QComboBox *hostCombo = nullptr;
     QLineEdit *portLineEdit = nullptr;
     QLabel *statusLabel = nullptr;
     QPushButton *getFortuneButton = nullptr;
 
-//    QTcpSocket *tcpSocket = nullptr;
+    QTcpSocket *tcpSocket = nullptr;
     QDataStream in;
     QString currentFortune;
 };
