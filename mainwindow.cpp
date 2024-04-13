@@ -1,3 +1,6 @@
+#include <QtWidgets>
+#include <QtNetwork>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -15,6 +18,20 @@ MainWindow::MainWindow(QWidget *parent)
     reset_for_new_round("OK let's get going!", "YOU TWIT!");
     connect(timer, SIGNAL(timeout()), this, SLOT(display_round_and_result()));
     timer->start(500);
+
+    ui->ipInput->setValidator(new QIntValidator(1, 65535, this));
+    ui->getDataButton->setDefault(true);
+    ui->getDataButton->setEnabled(false);
+    in.setDevice(tcpSocket);
+    in.setVersion(QDataStream::Qt_4_0);
+
+    connect(ui->ipInput, &QLineEdit::textChanged,
+            this, &MainWindow::enable_get_fortune_button);
+    connect(ui->portInput, &QLineEdit::textChanged,
+            this, &MainWindow::enable_get_fortune_button);
+    connect(ui->getDataButton, &QAbstractButton::clicked,
+            this, &MainWindow::request_new_fortune);
+    connect(tcpSocket, &QIODevice::readyRead, this, &MainWindow::read_fortune);
 }
 
 MainWindow::~MainWindow()
@@ -83,6 +100,41 @@ void MainWindow::on_goToGameButton_clicked()
 
 void MainWindow::on_getDataButton_clicked()
 {
+
+}
+
+void MainWindow::request_new_fortune()
+{
+    ui->getDataButton->setEnabled(false);
+    tcpSocket->abort();
+    tcpSocket->connectToHost(ui->ipInput->text(),
+                             ui->portInput->text().toInt());
+}
+
+void MainWindow::read_fortune()
+{
+    in.startTransaction();
+
+    QString nextFortune;
+    in >> nextFortune;
+
+    if (!in.commitTransaction())
+        return;
+
+    if (nextFortune == currentFortune) {
+        QTimer::singleShot(0, this, &MainWindow::request_new_fortune);
+        return;
+    }
+
+    currentFortune = nextFortune;
+    ui->fortuneOutput->setText(currentFortune);
+    ui->getDataButton->setEnabled(true);
+}
+
+void MainWindow::enable_get_fortune_button()
+{
+    ui->getDataButton->setEnabled(!ui->ipInput->text().isEmpty() &&
+                                 !ui->portInput->text().isEmpty());
 
 }
 

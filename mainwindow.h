@@ -27,6 +27,11 @@ private slots:
     void display_round_and_result();
     void reset_for_new_round(QString round_string, QString computer_string);
 
+    void request_new_fortune();
+    void read_fortune();
+    void display_error(QAbstractSocket::SocketError socketError);
+    void enable_get_fortune_button();
+
     void on_goToGameButton_clicked();
 
     void on_getDataButton_clicked();
@@ -38,5 +43,9 @@ private:
 
     Player* player1 = new Player;
     Player* player2 = new Player;
+
+    QTcpSocket *tcpSocket = nullptr;
+    QDataStream in;
+    QString currentFortune;
 };
 #endif // MAINWINDOW_H
