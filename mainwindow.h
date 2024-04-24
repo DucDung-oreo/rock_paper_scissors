@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "player.h"
 #include <QTimer>
+#include <QTcpSocket>
+#include <QtMqtt/QMqttClient>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
