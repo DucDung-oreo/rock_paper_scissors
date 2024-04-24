@@ -24,7 +24,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="gamePage">
        <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -468,20 +468,20 @@
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_8">
                  <item>
-                  <widget class="QLineEdit" name="lineEdit"/>
+                  <widget class="QLineEdit" name="hostInput"/>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_2"/>
+                  <widget class="QLineEdit" name="portInput"/>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_3">
+                  <widget class="QLineEdit" name="usernameInput">
                    <property name="text">
                     <string/>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_4">
+                  <widget class="QLineEdit" name="passwordInput">
                    <property name="text">
                     <string/>
                    </property>
@@ -492,14 +492,14 @@
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_10">
                  <item>
-                  <widget class="QPushButton" name="pushButton">
+                  <widget class="QPushButton" name="connectButton">
                    <property name="text">
                     <string>Connect</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_2">
+                  <widget class="QPushButton" name="subscribeButton">
                    <property name="text">
                     <string>Subscribe</string>
                    </property>
