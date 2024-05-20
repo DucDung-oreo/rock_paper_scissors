@@ -3,9 +3,10 @@
 
 QTimer *timer = new QTimer();
 
-MainWindow::MainWindow( QWidget *parent)
+MainWindow::MainWindow(QMqttSubscription *sub, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_sub(sub)
 {
     ui->setupUi(this);
 
@@ -17,8 +18,13 @@ MainWindow::MainWindow( QWidget *parent)
     connect(m_client, &QMqttClient::disconnected, this, &MainWindow::brokerDisconnected);
     connect(m_client, &QMqttClient::messageReceived, this, [this](const QByteArray &message, const QMqttTopicName &topic) {
         const QString content = QDateTime::currentDateTime().toString()
-                                + QLatin1String(" Message received\n");
+                                + QLatin1String(" Received Topic: ")
+                                + topic.name()
+                                + QLatin1String(" Message: ")
+                                + message
+                                + QLatin1Char('\n');
         ui->logEdit->insertPlainText(content);
+        ui->logEditGame->insertPlainText(content);
     });
 
     connect(m_client, &QMqttClient::pingResponseReceived, this, [this]() {
@@ -26,9 +32,10 @@ MainWindow::MainWindow( QWidget *parent)
                                 + QLatin1String(" PingResponse")
                                 + QLatin1Char('\n');
         ui->logEdit->insertPlainText(content);
+        ui->logEditGame->insertPlainText(content);
     });
 
-    connect(m_sub, &QMqttSubscription::messageReceived, this, &MainWindow::updateMessage);
+    // connect(m_sub, &QMqttSubscription::messageReceived, this, &MainWindow::updateMessage);
 
     connect(ui->hostInput, &QLineEdit::textChanged, m_client, &QMqttClient::setHostname);
     connect(ui->portInput, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setClientPort);
@@ -37,6 +44,7 @@ MainWindow::MainWindow( QWidget *parent)
     updateLogStateChange();
 
     ui->stackedWidget->setCurrentIndex(1);  // set to introPage
+    disable_multiplayer(true);
     player1->initialize(ui);
     player2->initialize(ui);
     ui->goButton->setEnabled(false);
@@ -149,11 +157,21 @@ void MainWindow::on_subscribeButton_clicked()
         QMessageBox::critical(this, QLatin1String("Error"), QLatin1String("Could not subscribe. Is there a valid connection?"));
         return;
     }
+    connect(m_sub, &QMqttSubscription::messageReceived, this, &MainWindow::updateMessage);
+
 }
 
 void MainWindow::on_testSubButton_clicked()
 {
-    if (m_client->publish(QString("test topic"), QString("Hello you!").toUtf8(),
+    QString content = "Player 1: "
+                      + QString::number(player1->get_choice())
+                      + " and Player 2: "
+                      + QString::number(player2->get_choice());
+                      // + "\n Result is Player 1 "
+                      // + result_for_player1
+                      // + "\n Round count: "
+                      // + QString::number(roundCount);
+    if (m_client->publish(QString("test topic"), content.toUtf8(),
                           0, false)
         == -1)
         QMessageBox::critical(this, QLatin1String("Error"), QLatin1String("Could not publish message"));
@@ -161,7 +179,9 @@ void MainWindow::on_testSubButton_clicked()
 
 void MainWindow::updateMessage(const QMqttMessage &msg)
 {
-    ui->roundLabel->setText(msg.payload());
+    // ui->roundLabel->setText(msg.payload());
+    ui->logEdit->insertPlainText(msg.payload());
+    ui->logEdit->insertPlainText("msg.payload()");
 }
 
 void MainWindow::updateLogStateChange()
@@ -176,4 +196,38 @@ void MainWindow::updateLogStateChange()
 void MainWindow::on_backButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1); // move to homePage
+}
+
+
+void MainWindow::on_multiCheckBox_stateChanged(int arg1)
+{
+    if(ui->multiCheckBox->isChecked())
+    {
+        disable_multiplayer(false);
+        disable_singleplayer(true);
+    }
+    else
+    {
+        disable_multiplayer(true);
+        disable_singleplayer(false);
+    }
+}
+
+void MainWindow::disable_multiplayer(bool state)
+{
+    ui->connectButton->setDisabled(state);
+    ui->subscribeButton->setDisabled(state);
+    ui->hostInput->setDisabled(state);
+    ui->portInput->setDisabled(state);
+    ui->usernameInput->setDisabled(state);
+    ui->passwordInput->setDisabled(state);
+}
+
+void MainWindow::disable_singleplayer(bool state)
+{
+    QPixmap pixmap1(":/icon/spongeBob.jpg");
+    ui->player1Avatar->setPixmap(pixmap1.scaled(ui->player1Avatar->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    QPixmap pixmap2(":/icon/squidward.jpg");
+    ui->player2Avatar->setPixmap(pixmap2.scaled(ui->player2Avatar->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }

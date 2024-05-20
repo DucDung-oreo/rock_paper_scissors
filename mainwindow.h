@@ -7,6 +7,8 @@
 #include <QTcpSocket>
 #include <QtMqtt/QMqttClient>
 #include <QMessageBox>
+#include <QtMqtt/QMqttMessage>
+#include <QtMqtt/QMqttSubscription>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +19,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QMqttSubscription *sub = nullptr, QWidget *parent = nullptr);
     ~MainWindow();
 
 public slots:
     void setClientPort(int p);
+    void updateMessage(const QMqttMessage &msg);
 
 private slots:
     void on_rockButton_clicked();
@@ -39,12 +42,15 @@ private slots:
     void on_connectButton_clicked();
     void on_subscribeButton_clicked();
     void on_testSubButton_clicked();
-    void updateMessage(const QMqttMessage &msg);
+    void on_multiCheckBox_stateChanged(int arg1);
+    void disable_multiplayer(bool state);
+    void disable_singleplayer(bool state);
 
 private:
     Ui::MainWindow *ui;
     QMqttClient *m_client;
     int roundCount = 1;
+
     QString result_for_player1;
     QMqttSubscription *m_sub;
 
