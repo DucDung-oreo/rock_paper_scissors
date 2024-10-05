@@ -43,6 +43,11 @@ void Player::set_choice(Choices choice_enum)
     choice = choice_enum;
 }
 
+QString Player::get_choice_string(Choices choice_enum)
+{
+    return choices_map.at(choice_enum);
+}
+
 QString Player::get_result(Choices p1, Choices p2)
 {
     if (p1 == p2)

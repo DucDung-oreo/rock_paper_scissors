@@ -164,9 +164,9 @@ void MainWindow::on_subscribeButton_clicked()
 void MainWindow::on_testSubButton_clicked()
 {
     QString content = "Player 1: "
-                      + QString::number(player1->get_choice())
+                      + player1->get_choice_string(player1->get_choice())
                       + " and Player 2: "
-                      + QString::number(player2->get_choice());
+                      + player2->get_choice_string(player2->get_choice());
                       // + "\n Result is Player 1 "
                       // + result_for_player1
                       // + "\n Round count: "
