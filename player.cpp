@@ -1,6 +1,5 @@
 #include "player.h"
 
-
 Player::Player()
 {
 
@@ -45,7 +44,14 @@ void Player::set_choice(Choices choice_enum)
 
 QString Player::get_choice_string(Choices choice_enum)
 {
-    return choices_map.at(choice_enum);
+    if (auto search = choices_map.find(choice_enum); search != choices_map.end())
+    {
+        return choices_map.at(choice_enum);
+    }
+    else
+    {
+        return "NOT AVAILABLE!!!";
+    }
 }
 
 QString Player::get_result(Choices p1, Choices p2)
