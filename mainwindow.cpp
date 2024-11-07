@@ -49,7 +49,7 @@ MainWindow::MainWindow(QMqttSubscription *sub, QWidget *parent)
     player2->initialize(ui);
     ui->goButton->setEnabled(false);
     ui->hostInput->setText("test.mosquitto.org");
-    reset_for_new_round("OK let's get going!", "YOU TWIT!");
+    // reset_for_new_round("OK let's get going!", "YOU TWIT!");
     connect(timer, SIGNAL(timeout()), this, SLOT(display_round_and_result()));
     timer->start(500);
 }
@@ -115,6 +115,8 @@ void MainWindow::reset_for_new_round(QString round_string, QString computer_stri
 void MainWindow::on_goToGameButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0); // move to gamePage
+
+    qDebug() << "=========  MOVING TO GAMEPAGE NOW ========= \n";
 }
 
 void MainWindow::setClientPort(int p)
@@ -158,23 +160,24 @@ void MainWindow::on_subscribeButton_clicked()
         return;
     }
     connect(m_sub, &QMqttSubscription::messageReceived, this, &MainWindow::updateMessage);
-
 }
 
 void MainWindow::on_testSubButton_clicked()
 {
-    QString content = "Player 1: "
-                      + player1->get_choice_string(player1->get_choice())
-                      + " and Player 2: "
-                      + player2->get_choice_string(player2->get_choice());
-                      // + "\n Result is Player 1 "
-                      // + result_for_player1
-                      // + "\n Round count: "
-                      // + QString::number(roundCount);
-    if (m_client->publish(QString("test topic"), content.toUtf8(),
+    // QMqttMessage* message = new QMqttMessage();
+    
+    QJsonObject root;
+    root["PlayerName"] = get_playerName();
+    root["Choice"] = player1->get_choice_string(player1->get_choice());
+    root["WinCount"] = 17;
+
+    QByteArray jsonTest = QJsonDocument(root).toJson();
+    qDebug() << jsonTest;
+
+    if (m_client->publish(QString("test topic"), jsonTest,
                           0, false)
         == -1)
-        QMessageBox::critical(this, QLatin1String("Error"), QLatin1String("Could not publish message"));
+        QMessageBox::critical(this, QLatin1String("Error"), QLatin1String("Could not publish message"));   
 }
 
 void MainWindow::updateMessage(const QMqttMessage &msg)
@@ -221,6 +224,7 @@ void MainWindow::disable_multiplayer(bool state)
     ui->portInput->setDisabled(state);
     ui->usernameInput->setDisabled(state);
     ui->passwordInput->setDisabled(state);
+    ui->playerNameInput->setDisabled(state);
 }
 
 void MainWindow::disable_singleplayer(bool state)
@@ -230,4 +234,17 @@ void MainWindow::disable_singleplayer(bool state)
 
     QPixmap pixmap2(":/icon/squidward.jpg");
     ui->player2Avatar->setPixmap(pixmap2.scaled(ui->player2Avatar->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+}
+
+QString MainWindow::get_clientId()
+{
+    return m_client->clientId();
+}
+
+QString MainWindow::get_playerName()
+{
+    QString playerName = ui->playerNameInput->text()
+                         + "_"
+                         + m_client->clientId().right(4);
+    return playerName;
 }

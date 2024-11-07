@@ -9,6 +9,8 @@
 #include <QMessageBox>
 #include <QtMqtt/QMqttMessage>
 #include <QtMqtt/QMqttSubscription>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,6 +27,8 @@ public:
 public slots:
     void setClientPort(int p);
     void updateMessage(const QMqttMessage &msg);
+    QString get_clientId();
+    QString get_playerName();
 
 private slots:
     void on_rockButton_clicked();
