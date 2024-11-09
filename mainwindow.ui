@@ -439,13 +439,13 @@
        </layout>
       </widget>
       <widget class="QWidget" name="introPage">
-       <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <layout class="QVBoxLayout" name="verticalLayout_20">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_13">
+         <layout class="QVBoxLayout" name="verticalLayout_19">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_14">
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <layout class="QVBoxLayout" name="verticalLayout_13">
               <item>
                <widget class="QPushButton" name="goToGameButton">
                 <property name="text">
@@ -454,15 +454,59 @@
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_2">
+               <widget class="QPushButton" name="createRoomButton">
                 <property name="text">
-                 <string>Player's name</string>
+                 <string>Create room</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="playerNameInput"/>
+               <widget class="QPushButton" name="joinRoomButton">
+                <property name="text">
+                 <string>Join room</string>
+                </property>
+               </widget>
               </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>Player's name</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="playerNameInput"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>Current room:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="roomLabel">
+                  <property name="text">
+                   <string>waiting...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_15">
               <item>
                <widget class="QCheckBox" name="multiCheckBox">
                 <property name="font">
@@ -490,103 +534,110 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="lockRoomButton">
+                <property name="text">
+                 <string>Lock room</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox">
-              <property name="title">
-               <string>Connection</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_11">
+           </layout>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Connection</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_9">
-                   <item>
-                    <widget class="QLabel" name="label">
-                     <property name="text">
-                      <string>Host</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_4">
-                     <property name="text">
-                      <string>Port</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_5">
-                     <property name="text">
-                      <string>Username</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_6">
-                     <property name="text">
-                      <string>Password</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>Host</string>
+                   </property>
+                  </widget>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_8">
-                   <item>
-                    <widget class="QLineEdit" name="hostInput"/>
-                   </item>
-                   <item>
-                    <widget class="QSpinBox" name="portInput">
-                     <property name="maximum">
-                      <number>9999</number>
-                     </property>
-                     <property name="value">
-                      <number>1883</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="usernameInput">
-                     <property name="text">
-                      <string/>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="passwordInput">
-                     <property name="text">
-                      <string/>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Port</string>
+                   </property>
+                  </widget>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_10">
-                   <item>
-                    <widget class="QPushButton" name="connectButton">
-                     <property name="text">
-                      <string>Connect</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="subscribeButton">
-                     <property name="text">
-                      <string>Subscribe</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>Username</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>Password</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_8">
+                 <item>
+                  <widget class="QLineEdit" name="hostInput"/>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="portInput">
+                   <property name="maximum">
+                    <number>9999</number>
+                   </property>
+                   <property name="value">
+                    <number>1883</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="usernameInput">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="passwordInput">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <item>
+                  <widget class="QPushButton" name="connectButton">
+                   <property name="text">
+                    <string>Connect</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="subscribeButton">
+                   <property name="text">
+                    <string>Subscribe</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
               </layout>
-             </widget>
-            </item>
-           </layout>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
            <widget class="QGroupBox" name="groupBox_2">

@@ -11,6 +11,7 @@
 #include <QtMqtt/QMqttSubscription>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,6 +41,9 @@ private slots:
 
     void on_goToGameButton_clicked();
     void on_backButton_clicked();
+    void on_createRoomButton_clicked();
+    void on_joinRoomButton_clicked();
+    void on_lockRoomButton_clicked();
 
     void brokerDisconnected();
     void updateLogStateChange();
@@ -56,6 +60,8 @@ private:
     int roundCount = 1;
 
     QString result_for_player1;
+    QString roomId;
+    bool roomLocked;
     QMqttSubscription *m_sub;
 
     Player* player1 = new Player;

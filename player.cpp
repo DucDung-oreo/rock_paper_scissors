@@ -87,5 +87,3 @@ int Player::get_loseCount()
 {
     return loseCount;
 }
-
-

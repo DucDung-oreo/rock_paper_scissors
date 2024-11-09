@@ -48,6 +48,7 @@ MainWindow::MainWindow(QMqttSubscription *sub, QWidget *parent)
     player1->initialize(ui);
     player2->initialize(ui);
     ui->goButton->setEnabled(false);
+    ui->lockRoomButton->setEnabled(false);
     ui->hostInput->setText("test.mosquitto.org");
     // reset_for_new_round("OK let's get going!", "YOU TWIT!");
     connect(timer, SIGNAL(timeout()), this, SLOT(display_round_and_result()));
@@ -159,6 +160,9 @@ void MainWindow::on_subscribeButton_clicked()
         QMessageBox::critical(this, QLatin1String("Error"), QLatin1String("Could not subscribe. Is there a valid connection?"));
         return;
     }
+    else {
+        ui->lockRoomButton->setEnabled(true);
+    }
     connect(m_sub, &QMqttSubscription::messageReceived, this, &MainWindow::updateMessage);
 }
 
@@ -167,6 +171,7 @@ void MainWindow::on_testSubButton_clicked()
     // QMqttMessage* message = new QMqttMessage();
     
     QJsonObject root;
+    root["RoomID"] = roomId;
     root["PlayerName"] = get_playerName();
     root["Choice"] = player1->get_choice_string(player1->get_choice());
     root["WinCount"] = 17;
@@ -225,6 +230,8 @@ void MainWindow::disable_multiplayer(bool state)
     ui->usernameInput->setDisabled(state);
     ui->passwordInput->setDisabled(state);
     ui->playerNameInput->setDisabled(state);
+    ui->createRoomButton->setDisabled(state);
+    ui->joinRoomButton->setDisabled(state);
 }
 
 void MainWindow::disable_singleplayer(bool state)
@@ -247,4 +254,43 @@ QString MainWindow::get_playerName()
                          + "_"
                          + m_client->clientId().right(4);
     return playerName;
+}
+
+
+
+void MainWindow::on_createRoomButton_clicked()
+{
+    QMessageBox msgBox;
+    roomId = m_client->clientId().right(4);
+    QString  message = "You have created a new room with ID \n"
+                      + roomId;
+    msgBox.setText(message);
+    msgBox.exec();
+    ui->roomLabel->setText(roomId);
+}
+
+
+void MainWindow::on_joinRoomButton_clicked()
+{
+    bool ok;
+    roomId = QInputDialog::getText(this, tr("Enter room ID"),
+                                         tr("Room ID:"), QLineEdit::Normal,
+                                         "example: b2c4",  &ok);
+    if (ok && !roomId.isEmpty())
+        ui->roomLabel->setText(roomId);
+}
+
+
+
+void MainWindow::on_lockRoomButton_clicked()
+{
+    QMessageBox::StandardButton confirm;
+    confirm = QMessageBox::question(this, "Lock room",
+                                    "Are you sure you want to lock this room?",
+                                    QMessageBox::Yes|QMessageBox::No);
+    if (confirm == QMessageBox::Yes) {
+        ui->lockRoomButton->setText("Room's locked!");
+    } else {
+        ui->lockRoomButton->setText("Lock room?");
+    }
 }
