@@ -15,6 +15,7 @@ public:
     void display_choice(Choices player_choice, QLabel* player_label);
     void done_chosing(Player* player_ptr, QLabel* player_label);
     Choices get_choice();
+    QString get_choice_string(Choices choice_enum);
     void set_choice(Choices choice_enum);
     Choices generate_choice();
     QString get_result(Choices p1, Choices p2);
